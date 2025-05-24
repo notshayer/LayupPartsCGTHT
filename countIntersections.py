@@ -9,6 +9,7 @@ line_segments = generate_random_line_segments(10)
 # where m is the slope, x is the x coordinate, and b is the intercept
 segment_slopes    = [] 
 segment_intercepts = []
+offset = 0
 
 for line in line_segments:
     # break up data into coordinatese
@@ -20,17 +21,20 @@ for line in line_segments:
     x2 = end_coord[0]
     y2 = end_coord[1]
     # calculate slope
-    slope = (y2-y1)/(x2-x1)
-    intercept = y2 - (slope*x2)
-    segment_slopes.append(slope)
-    segment_intercepts.append(intercept)
+    try:
+        slope = (y2-y1)/(x2-x1)
+        intercept = y2 - (slope*x2)
+        segment_slopes.append(slope)
+        segment_intercepts.append(intercept)
+    except:
+        offset += 1
 
 # check every line segment against the line segments after it.
 # each iteration only checks the segments that come after it to prevent repeat calculations.
 # This still results in -> Time Complexity: O(n^2) Space Complexity: O(n)
 counter = 0
-for idx in range(len(line_segments)):
-    for idy in range(idx + 1,len(line_segments)):
+for idx in range(len(line_segments)-offset):
+    for idy in range(idx + 1,len(line_segments)-offset):
         # only check for intersection if x-ranges overlap
         line1 = line_segments[idx]
         line2 = line_segments[idy]

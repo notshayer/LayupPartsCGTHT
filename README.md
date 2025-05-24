@@ -7,6 +7,11 @@
 - (Optional) Use `requirements.txt` to install matplotlib and also get visual aide used to verify solution (optional)
     - `pip install requirements.txt` (might be `pip3` depending on install)
 
+# Edge Cases Considered:
+- Endpoint Collision - counts as intersection
+- Vertical Segments (Division by Zero) - error handling to prevent crash + offset in processing loop
+- Parallel Lines - No Intersection
+
 # Run Instructions:
 - Clone repo and `python countIntersections.py` or `python3 countIntersections.py`
 
