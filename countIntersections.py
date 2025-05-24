@@ -1,11 +1,10 @@
 # helper folder contains line segment generation functions + visualization tools
 from helper.coordinateHelpers import generate_random_line_segments, checkXOverlap
+import time
 
 # generate 20 random segments, in the format specified in the test document
 # ex: lines = [[(0, 53), (19, 73)], [(41, 84), (79, 30)], [(66, 24), (89, 9)], ...]
 line_segments = generate_random_line_segments(10)
-print("list = \n")
-print(line_segments)
 # we convert the segments into their linear equation forms, y = mx + b
 # where m is the slope, x is the x coordinate, and b is the intercept
 segment_slopes    = [] 
@@ -28,6 +27,7 @@ for line in line_segments:
 
 # check every line segment against the line segments after it.
 # each iteration only checks the segments that come after it to prevent repeat calculations.
+# This still results in -> Time Complexity: O(n^2) Space Complexity: O(n)
 counter = 0
 for idx in range(len(line_segments)):
     for idy in range(idx + 1,len(line_segments)):
@@ -45,6 +45,24 @@ for idx in range(len(line_segments)):
             if x_intersect <= this_range[1] and x_intersect >= this_range[0]:
                 counter += 1
 
-print(counter)
+# Print out segments list and intersection count
+print("list = ")
+print(line_segments)
+print("\n")
+print("Number of Intersections: {}".format(counter))
+print("\n")
+# Sleep to allow user to view output before trying to showing visual aide
+time.sleep(3) 
+
+# Bonus: Plot out points to verify manually
+# We use try except in case script-tester didnt use the requirements.txt/install matplotlib
+try:
+    from helper.visualizeHelper import plot_segments
+    import matplotlib.pyplot as plt
+    fig, ax = plot_segments(line_segments, counter)
+    plt.show()
+except:
+    print("Install matplotlib to visualize segments. (requirements.txt)")
+
 
 
