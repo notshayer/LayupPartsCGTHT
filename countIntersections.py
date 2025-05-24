@@ -31,6 +31,7 @@ for line in line_segments:
 counter = 0
 for idx in range(len(line_segments)):
     for idy in range(idx + 1,len(line_segments)):
+        # only check for intersection if x-ranges overlap
         line1 = line_segments[idx]
         line2 = line_segments[idy]
         this_range = []
